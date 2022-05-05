@@ -1,4 +1,5 @@
 // cloned from https://github.com/lhartikk/naivechain
+// описание кода https://tproger.ru/translations/blockchain-explained/
 
 'use strict';
 var CryptoJS = require("crypto-js");
