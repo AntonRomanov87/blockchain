@@ -61,7 +61,7 @@ contract VulnerableOne {
 
 	function pay() public payable {
 		require(users_map[msg.sender].created != 0);
-		users_map[msg.sender].ether_balance += msg.value;
+		users_map[msg.sender].ether_balance += msg.value; // Операция без вызова .add из SafeMath
 	}
 
 	function add_new_user(address _new_user) public onlySuperUser {
