@@ -1,4 +1,4 @@
-pragma solidity 0.4.23;
+pragma solidity ^0.8.13;
 
 /* Общие замечания:
 1. Используется очень старая версия компилятора
@@ -13,15 +13,10 @@ pragma solidity 0.4.23;
 9. Абсолютно отсутствуют описания функций в коде и какие-либо комментарии.
 10. Можно добавить функцию проверки целостности данных: например что сумма балансов в users_map равно балансу контракта и периодически её запускать
 	и ставить на паузу контракт если что-то не так.
-11. Не указан SPDX license identifier. В случае публикации кода контракта в etherscan могут быть неоднозначности в возможностях использования кода.
-12. Необходимо устранить все ошибки которые выводит компилятор (тестировалось на 0.8.13):
-	[Line 69] "message": ""now" has been deprecated. Use "block.timestamp" instead.",
-	[Line 95] "message": ""send" and "transfer" are only available for objects of type "address payable", not "address".",
-	[Line 1]  "message": "SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.",
-	[Line 49] "message": "Visibility for constructor is ignored. If you want the contract to be non-deployable, making it "abstract" is sufficient.",
+11. Не указан SPDX license identifier. В случае публикации кода контракта в etherscan он 
  */
 
-import "zeppelin-solidity/contracts/math/SafeMath.sol";
+// import "zeppelin-solidity/contracts/math/SafeMath.sol";
 
 /*
 TZ: contract creator becomes the first superuser. Then he adds new users and superusers. Every superuser can add new users and superusers;
@@ -30,8 +25,8 @@ If user sends ether, his balance is increased. Then he can withdraw eteher from 
 
 
 contract VulnerableOne {
-    using SafeMath for uint; // Далее в коде везде используются uint256, стоит явно указать что SafeMath для них.
-	// SafeMath не требуется начиная с Solidity 0.8.0, все underflow/overflow будут вызывать исключение автоматически.
+    // using SafeMath for uint; // Далее в коде везде используются uint256, стоит явно указать что SafeMath для них.
+	// // SafeMath не требуется начиная с Solidity 0.8.0, все underflow/overflow будут вызывать исключение автоматически.
 
     struct UserInfo {
         uint256 created;
