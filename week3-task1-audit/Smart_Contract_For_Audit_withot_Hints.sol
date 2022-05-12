@@ -13,6 +13,7 @@ pragma solidity 0.4.23;
 9. Абсолютно отсутствуют описания функций в коде и какие-либо комментарии.
 10. Можно добавить функцию проверки целостности данных: например что сумма балансов в users_map равно балансу контракта и периодически её запускать
 	и ставить на паузу контракт если что-то не так.
+11. Не указан SPDX license identifier. В случае публикации кода контракта в etherscan он 
  */
 
 import "zeppelin-solidity/contracts/math/SafeMath.sol";
@@ -24,7 +25,8 @@ If user sends ether, his balance is increased. Then he can withdraw eteher from 
 
 
 contract VulnerableOne {
-    using SafeMath for uint;
+    using SafeMath for uint; // Далее в коде везде используются uint256, стоит явно указать что SafeMath для них.
+	// SafeMath не требуется начиная с Solidity 0.8.0, все underflow/overflow будут вызывать исключение автоматически.
 
     struct UserInfo {
         uint256 created;
