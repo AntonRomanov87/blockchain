@@ -103,7 +103,10 @@ contract VulnerableOne {
 		// Нужно поменять "msg.sender" на "payable(msg.sender)", чтобы не было ошибки компилятора.
 		msg.sender.transfer(users_map[msg.sender].ether_balance); // стоит учитывать, что fallback-функция получит 
 		    // ограниченное количество газа - всего 2300 и может не отработать.
-			// Предпочтительнее использовать call, чтобы тот кто вызывал контракт мог использовать весь газ, который он передал.
+			// Предпочтительнее использовать:
+			//     (bool sent, ) = payable(msg.sender).call{value: amountToTransfer}(""); 
+			//     require(sent);
+			// чтобы тот кто вызывал контракт мог использовать весь газ, который он передал.
 
 		users_map[msg.sender].ether_balance = 0; // незарегистрированный пользователь может прописаться в users_map
 	}
