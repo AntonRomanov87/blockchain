@@ -30,7 +30,7 @@ If user sends ether, his balance is increased. Then he can withdraw eteher from 
 
 
 contract VulnerableOne {
-    using SafeMath for uint; // Далее в коде везде используются uint256, стоит явно указать что SafeMath для них.
+    using SafeMath for uint; // Далее в коде везде используются uint256, стоит явно указать что SafeMath для них, хоть это вроде и синонимы.
 	// SafeMath не требуется начиная с Solidity 0.8.0, все underflow/overflow будут вызывать исключение автоматически.
 
     struct UserInfo {
@@ -75,7 +75,7 @@ contract VulnerableOne {
 		users_list.push(_new_user);
 	}
 	
-	// Любой зарегистрирванный пользователь (не супер-админ) может удалить любого пользователя, нет контроля доступа, нужно добавить модификатор onlySuperUser
+	// Любой зарегистрирванный пользователь (не супер-пользователь) может удалить любого пользователя, нет контроля доступа, нужно добавить модификатор onlySuperUser
 	function remove_user(address _remove_user) public {
 		require(users_map[msg.sender].created != 0); // проверяется что пользователь-отправитель сообщения - зарегистрирован.
 			// Надо ещё проверять, что удаляемый пользователь (_remove_user) - тоже зарегистрирован.
@@ -92,6 +92,7 @@ contract VulnerableOne {
 		}
 
 		// Удаляемый пользователю не удаляется из is_super_user если он был супер-пользователем.
+		// Плюс в ТЗ не сказано может ли суперпользователь удалить суперпользователя.
 	}
 
 	function withdraw() public {
@@ -100,7 +101,8 @@ contract VulnerableOne {
 
 		// Тут возможна атака reentrancy, необходимо в начале занулить баланс, а потом отправлять токены (Checks-Effects-Interactions паттерн).
         
-		// msg.sender должен иметь fallback-функцию, чтобы принять transfer, иначе будет исключение. То есть НЕ кто угодно может вернуть свои токены.
+		// msg.sender должен иметь fallback-функцию, чтобы принять transfer, иначе будет исключение. 
+		// То есть кто угодно может в этот конракт отправить токены, но потом вернуть их может НЕ кто угодно.
 		
 		// Нужно поменять "msg.sender" на "payable(msg.sender)", чтобы не было ошибки компилятора.
 		msg.sender.transfer(users_map[msg.sender].ether_balance); // стоит учитывать, что fallback-функция получит 
