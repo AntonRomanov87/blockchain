@@ -79,7 +79,7 @@ contract VulnerableOne {
 	function remove_user(address _remove_user) public {
 		require(users_map[msg.sender].created != 0); // проверяется что пользователь-отправитель сообщения - зарегистрирован.
 			// Надо ещё проверять, что удаляемый пользователь (_remove_user) - тоже зарегистрирован.
-		delete(users_map[_remove_user]); // потом удаляется совершенно другой пользователь (который передан как аргумент)
+		delete(users_map[_remove_user]);
 		bool shift = false;
 		for (uint i=0; i<users_list.length; i++) {
 			if (users_list[i] == _remove_user) {
