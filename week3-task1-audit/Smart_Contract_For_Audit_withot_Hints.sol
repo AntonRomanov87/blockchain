@@ -20,6 +20,8 @@ pragma solidity 0.4.23;
 	[Line 95] "message": ""send" and "transfer" are only available for objects of type "address payable", not "address".",
 	[Line 1]  "message": "SPDX license identifier not provided in source file. Before publishing, consider adding a comment containing "SPDX-License-Identifier: <SPDX-License>" to each source file. Use "SPDX-License-Identifier: UNLICENSED" for non-open-source code. Please see https://spdx.org for more information.",
 	[Line 49] "message": "Visibility for constructor is ignored. If you want the contract to be non-deployable, making it "abstract" is sufficient.",
+ 13. Проведён анализ через статический анализатор https://mythx.io/ - обнаруженные ошибки тоже занесены в комментарии.
+ 14. Запуск контракта и тестирование функций в dev-сети не проводилось, не хватило времени =))
  */
 
 import "zeppelin-solidity/contracts/math/SafeMath.sol";
