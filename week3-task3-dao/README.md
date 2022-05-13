@@ -1,3 +1,40 @@
+# Работа с голосованием в DAO
+
+0. Установка по инструкции ниже. В .env надо положить какой-нибудь любой PRIVATE_KEY нормальной длины.
+Подробное видео: https://www.youtube.com/watch?v=AhJtmUqhAqg
+Исходный репозитарий: https://github.com/PatrickAlphaC/dao-template
+1. Запускаем локальный blockchain и инициализируем контракты и их настройки
+Исполняются последовательно скрипты из директории deploy
+```
+yarn hardhat node
+```
+2. Создаём предложение в Governor (будем хранить 77 токенов в Box-контракте)
+В начале необходимо инициализировать файл proposals.json который будет хранить идентификаторы предложений:
+```
+{"31337": []}
+```
+И далее запускаем инициализацию предложения
+```
+yarn hardhat run scripts/propose.ts --network localhost
+```
+3. Голосование
+```
+yarn hardhat run scripts/vote.ts --network localhost
+```
+4. Проверить текущее состояние голосования через консоль HardHat
+```
+# yarn hardhat console --network localhost
+
+> const governor = await ethers.getContract("GovernorContract")
+undefined
+> await governor.state("<proposalId из proposals.json>")
+4
+```
+5. Исполнение голосования и проверку что Box получил токены
+```
+yarn hardhat run scripts/queue-and-execute.ts --network localhost
+```
+
 # DAO Template
 
 <div id="top"></div>
