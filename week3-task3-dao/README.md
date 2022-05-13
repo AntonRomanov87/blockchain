@@ -8,7 +8,7 @@
 ```
 yarn hardhat node
 ```
-2. Создаём предложение в Governor (будем хранить 77 токенов в Box-контракте)
+2. Создаём предложение в Governor (будем хранить значеие "77" в Box-контракте)
 В начале необходимо инициализировать файл proposals.json который будет хранить идентификаторы предложений:
 ```
 {"31337": []}
@@ -30,7 +30,7 @@ undefined
 > await governor.state("<proposalId из proposals.json>")
 4
 ```
-5. Исполнение голосования и проверку что Box получил токены
+5. Исполнение голосования и проверку что Box получил данные
 ```
 yarn hardhat run scripts/queue-and-execute.ts --network localhost
 ```
