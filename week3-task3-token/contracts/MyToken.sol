@@ -6,7 +6,10 @@ import "@openzeppelin/contracts/token/ERC20/extensions/draft-ERC20Permit.sol";
 import "@openzeppelin/contracts/token/ERC20/extensions/ERC20Votes.sol";
 
 contract MyToken is ERC20, ERC20Permit, ERC20Votes {
-    constructor() ERC20("MyToken", "MTK") ERC20Permit("MyToken") {}
+    constructor() ERC20("MyToken", "MTK") ERC20Permit("MyToken") {
+        // Выдадим адресу, запустившему контракт 1000 токенов.
+        _mint(msg.sender, 1000 * 10 ** decimals());
+    }
 
     // The functions below are overrides required by Solidity.
 
