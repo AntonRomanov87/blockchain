@@ -19,13 +19,13 @@
         // For this, you need the account signer...
         const signer = provider.getSigner();
 
-        const balance = await provider.getBalance("fractalnow.eth");
+        const balance = await provider.getBalance("0x092705dccaF6100dF2E2aE3Af781a2Cfcff77Eb1");
         console.log(balance);
         const balanceFormated = ethers.utils.formatEther(balance);
         console.log(balanceFormated);
 
         const tx = signer.sendTransaction({
-            to: "0x38f96E865906AF471E6a5A38EE2aD432A52118Fe",
+            to: "0xB10d787A5aA9aD72032f29B1642f9C51d59103C1",
             value: ethers.utils.parseEther("0.001")
         });
     </script>    
