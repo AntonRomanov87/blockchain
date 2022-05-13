@@ -34,6 +34,16 @@ undefined
 ```
 yarn hardhat run scripts/queue-and-execute.ts --network localhost
 ```
+6. Проверка вручную что значение в контракте:
+```
+# yarn hardhat console --network localhost
+
+> const box = await ethers.getContract("Box")
+undefined
+
+> console.log((await box.retrieve()).toString());
+77
+```
 
 # DAO Template
 
