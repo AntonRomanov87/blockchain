@@ -52,7 +52,7 @@ contract VulnerableOne {
         _;
     }
 
-    event UserAdded(address new_user); // забыли добавить emit на этот event в функцию add_new_user
+    event UserAdded(address new_user);
 
     constructor() public {
 		set_super_user(msg.sender);
@@ -74,7 +74,10 @@ contract VulnerableOne {
 	}
 
 	function add_new_user(address _new_user) public onlySuperUser {
-		require(users_map[_new_user].created == 0);
+		// Нет проверки на нулевой адрес 
+		require(users_map[_new_user].created == 0); 
+		emit UserAdded(_new_user); // может получиться, что закончится газ на выполнении функции, пользователь не добавится
+			// а ивент отправится.
 		users_map[_new_user] = UserInfo({ created: now, ether_balance: 0 });
 		users_list.push(_new_user);
 	}
@@ -85,6 +88,7 @@ contract VulnerableOne {
 			// Надо ещё проверять, что удаляемый пользователь (_remove_user) - тоже зарегистрирован.
 		delete(users_map[_remove_user]);
 		bool shift = false;
+		// Может закончиться газ в цикле если пользователей слишком много и функция перестанет работать. 
 		for (uint i=0; i<users_list.length; i++) {
 			if (users_list[i] == _remove_user) {
 				shift = true;
