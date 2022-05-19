@@ -19,7 +19,8 @@ npm install -g truffle
 ### Тестирование и деплой смарт-контрактов
 Скомпилировать контракты используя truffle:
 ```bash
-npm i -D webpack react react-dom babel-core babel-loader babel-preset-react babel-preset-env css-loader style-loader json-loader web3@0.20.0
+npm i --save react react-dom babel-core babel-loader babel-preset-react babel-preset-env css-loader style-loader json-loader web3@0.20.0 babel-polyfill babel-register babel-preset-stage-2 babel-preset-es2015
+npm i -g http-server webpack webpack-cli json-loader 
 truffle compile
 ```
 
